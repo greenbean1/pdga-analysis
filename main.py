@@ -28,7 +28,7 @@ if __name__ == '__main__':
     sessid = get_pdga_sessid()
     print(sessid)
     url = 'https://api.pdga.com/services/json/player-statistics?pdga_number=37817'
-    # cookie = dict(session_name='iM-aNzJdNUFXrOVdL_H4pstXiViIA9MqyBMMBcVbmxY')
+    cookie = dict(session_name='iM-aNzJdNUFXrOVdL_H4pstXiViIA9MqyBMMBcVbmxY')
     cookies = dict(session_name=sessid)
     print(cookie)
     player_info_eagle = requests.get(url, cookies=cookies)
@@ -36,7 +36,6 @@ if __name__ == '__main__':
     print(player_info_eagle.content)
     print(player_info_eagle.text)
     print(player_info_eagle.json)
-
 
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
