@@ -18,7 +18,7 @@ def get_pdga_login() -> Dict[str, str]:
     return {'username': info[0], 'password': info[1]}
 
 
-def get_pdga_sessid() -> Tuple[str, str]:
+def get_pdga_session_info() -> Tuple[str, str]:
     print('Getting PDGA sessid')
     request_login = requests.post(PDGA_API_LOGIN_URL, data=get_pdga_login())
     login_response = request_login.text  # Refactor here: requests_login.json
@@ -28,7 +28,7 @@ def get_pdga_sessid() -> Tuple[str, str]:
 
 
 if __name__ == '__main__':
-    session_name, sessid = get_pdga_sessid()
+    session_name, sessid = get_pdga_session_info()
     print(sessid)
     url = 'https://api.pdga.com/services/json/player-statistics?pdga_number=37817'
     player_info_eagle = requests.get(url, cookies={session_name: sessid})
