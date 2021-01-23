@@ -18,6 +18,7 @@ This is a data analysis project exploring PDGA player information
 ## Things I Learned (or at least started learning)
 1. [HTTP Status Codes](https://www.restapitutorial.com/httpstatuscodes.html)
 2. [Requests Library](https://requests.readthedocs.io/en/master/)
+3. [Working with JSON](https://www.geeksforgeeks.org/convert-json-to-csv-in-python/)
 
 
 Create new API module
@@ -27,3 +28,4 @@ Try
 Use session info from text file
 Fail
 get session info from login (& set text file)
+
