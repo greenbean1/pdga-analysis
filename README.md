@@ -1,10 +1,9 @@
 # PDGA Analysis
 This is a data analysis project exploring PDGA player information
 
-## Next Goal: Save sessid & session_name into txt file
-1. Big Picture: Rewrite get_pdga_session_info()
-2. Main first tries to get player stats via text file's session info - if fail then read from log in
-3. Only log in if login credentials fail (save off session_name & sessid)
+## Next Goal: Get lots of player info (hella JSON)
+1. Use API query's limit, offset, division_code, country parameters
+2. Get 200 players with each query, offset by 1 then continue
 
 ## Project Milestones
 ~~1. Pull down JSON of Eagle McMahon via Requests Library~~
@@ -22,13 +21,3 @@ This is a data analysis project exploring PDGA player information
 1. [HTTP Status Codes](https://www.restapitutorial.com/httpstatuscodes.html)
 2. [Requests Library](https://requests.readthedocs.io/en/master/)
 3. [Working with JSON](https://www.geeksforgeeks.org/convert-json-to-csv-in-python/)
-
-
-Create new API module
-Get player info for Eagle
-
-Try
-Use session info from text file
-Fail
-get session info from login (& set text file)
-
