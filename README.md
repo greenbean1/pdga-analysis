@@ -8,8 +8,11 @@ This is a data analysis project exploring PDGA player information
 
 ## Project Milestones
 ~~1. Pull down JSON of Eagle McMahon via Requests Library~~
-2. Save sessid & session_name into txt file so do not need to hit API for login every time
-3. Save Eagle McMahon's JSON into a CSV
+
+~~2. Save sessid & session_name into txt file so do not need to hit API for login every time~~
+
+~~3. Save Eagle McMahon's JSON into a CSV~~
+
 4. Pull down JSON of all MPO, US players (test to see if inactive players get pulled)
 5. Save this JSON into a CSV & put into Pandas
 6. Create dataframe with state, number of players rated 1000+, state population (get this data)
