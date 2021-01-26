@@ -3,7 +3,8 @@ This is a data analysis project exploring PDGA player information
 
 ## Next Goal: Get lots of player info (hella JSON)
 1. Use API query's limit, offset, division_code, country parameters
-2. Get 200 players with each query, offset by 1 then continue
+2a. Test to see if inactive players get pulled
+2b. Get 200 players with each query, offset by 1 then continue
 
 ## Project Milestones
 ~~1. Pull down JSON of Eagle McMahon via Requests Library~~
@@ -12,10 +13,11 @@ This is a data analysis project exploring PDGA player information
 
 ~~3. Save Eagle McMahon's JSON into a CSV~~
 
-4. Pull down JSON of all MPO, US players (test to see if inactive players get pulled)
+4. Pull down JSON of all MPO, US players
 5. Save this JSON into a CSV & put into Pandas
-6. Create dataframe with state, number of players rated 1000+, state population (get this data)
-7. Create heat map data viz (Notebook? Seaborn/Plotly/etc)
+6. Get state population data
+7. Create dataframe with state, number of players rated 1000+
+8. Create heat map data viz (Notebook? Seaborn/Plotly/Dash/etc)
 
 ## Things I Learned (or at least started learning)
 1. [HTTP Status Codes](https://www.restapitutorial.com/httpstatuscodes.html)
