@@ -8,7 +8,7 @@ import requests
 from typing import Dict
 
 API_LOGIN_URL = 'https://api.pdga.com/services/json/user/login'
-PLAYER_STATS_URL = 'https://api.pdga.com/services/json/player-statistics?pdga_number=37817'
+EAGLE_STATS_URL = 'https://api.pdga.com/services/json/player-statistics?pdga_number=37817'
 
 
 def _get_pdga_login() -> Dict[str, str]:
@@ -47,25 +47,43 @@ def _get_old_pdga_session_info() -> Dict[str, str]:
     return {'session_name': info[0], 'sessid': info[1]}
 
 
-def get_player_stats(session_name: str, sessid: str) -> Dict[str, str]:
+def get_player_stats(url: str, session_name: str, sessid: str) -> Dict[str, str]:
     print('Getting player info')
-    player_info_eagle = requests.get(PLAYER_STATS_URL, cookies={session_name: sessid})
-    if player_info_eagle.status_code != HTTPStatus.OK:
+    player_info = requests.get(url, cookies={session_name: sessid})
+    if player_info.status_code != HTTPStatus.OK:
         print(f'Failed to get player stats: status {player_info_eagle.status_code}')
         raise Exception('Failed to get player stats')
     else:
-        print('Got player info Eagle')
+        print('Got player info')
         print(player_info_eagle)
-        return player_info_eagle.json().get('players')[0]  # look into DotDict; lazy since could cause crash
+        return player_info_eagle.json().get('players')  # look into DotDict; lazy since could cause crash
 
 
 def get_eagle_stats() -> Dict[str, str]:
     try:
         print('Trying old PDGA session info')
         old_pdga_session_info = _get_old_pdga_session_info()
-        return get_player_stats(old_pdga_session_info['session_name'], old_pdga_session_info['sessid'])
+        return get_player_stats(EAGLE_STATS_URL, old_pdga_session_info['session_name'], old_pdga_session_info['sessid'])
     except Exception:  # Ask about correct way to do this!
         print('Trying new PDGA session info')
         # Set txt file credentials!!
         new_pdga_session_info = _get_new_pdga_session_info()
-        return get_player_stats(new_pdga_session_info['session_name'], new_pdga_session_info['sessid'])
+        return get_player_stats(EAGLE_STATS_URL, new_pdga_session_info['session_name'], new_pdga_session_info['sessid'])
+
+
+def get_mpo_us_player_stats() -> Dict[str, str]:
+    limit = 11  # Varies between 10 and 200
+    offset = 0  # 0+
+    response_length = 200
+    url_string = f'https://api.pdga.com/services/json/player-statistics?division_code=MPO&country=US&limit={limit}&offset={offset}'
+    while response_length == 200:
+        try:
+            print('Trying old PDGA session info')
+            old_pdga_session_info = _get_old_pdga_session_info()
+            return get_player_stats(url_string, old_pdga_session_info['session_name'], old_pdga_session_info['sessid'])
+        except Exception:  # Ask about correct way to do this!
+            print('Trying new PDGA session info')
+            # Set txt file credentials!!
+            new_pdga_session_info = _get_new_pdga_session_info()
+            return get_player_stats(url_string, new_pdga_session_info['session_name'], new_pdga_session_info['sessid'])
+
