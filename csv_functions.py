@@ -16,13 +16,11 @@ def delete_player_stats_csv():
         print('Successfully deleted player stats csv')
     except OSError:
         print('No player stats file to delete')
-        pass
 
 
 def dict_to_csv(player_dict: Dict[str, str]) -> None:
-    delete_player_stats_csv()
     field_names = player_dict.keys()
-    with open('player_stats.csv', 'w', newline='') as csv_file:
+    with open(PLAYER_STATS_CSV, 'w', newline='') as csv_file:
         writer = csv.writer(csv_file)
         writer.writerow(field_names)
         player_values = []

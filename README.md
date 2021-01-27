@@ -13,13 +13,13 @@ This is a data analysis project exploring PDGA player information
 
 ~~3. Save Eagle McMahon's JSON into a CSV~~
 
-4. Pull down JSON of all MPO, US players
-5. Save this JSON into a CSV & put into Pandas
-6. Get state population data
-7. Create dataframe with state, number of players rated 1000+
-8. Create heat map data viz (Notebook? Seaborn/Plotly/Dash/etc)
+4. Pull down JSON and save into CSV along the way of all MPO, US players
+6. Get state population CSV (Census Bureau)
+7. Create dataframe merging CSVs with population data, number of players rated 1000+
+8. Create heat map data viz (Notebook? Seaborn/Plotly/Dash/Flourish)
 
 ## Things I Learned (or at least started learning)
 1. [HTTP Status Codes](https://www.restapitutorial.com/httpstatuscodes.html)
 2. [Requests Library](https://requests.readthedocs.io/en/master/)
 3. [Working with JSON](https://www.geeksforgeeks.org/convert-json-to-csv-in-python/)
+4. [Flourish](https://flourish.studio/visualisations/maps/?utm_source=showcase&utm_campaign=visualisation/4424060)
