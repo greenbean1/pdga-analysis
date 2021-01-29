@@ -18,7 +18,7 @@ This is a data analysis project exploring PDGA player information
 7. Create dataframe merging CSVs with population data, number of players rated 1000+
 8. Create heat map data viz (Notebook? Seaborn/Plotly/Dash/Flourish)
 
-## Things I Learned (or at least started learning)
+## Things I Learned (or at least started learning) - add to JSON part (data format in general, JSON vs dictionaries & converting to CSV)
 1. [HTTP Status Codes](https://www.restapitutorial.com/httpstatuscodes.html)
 2. [Requests Library](https://requests.readthedocs.io/en/master/)
 3. [Working with JSON](https://www.geeksforgeeks.org/convert-json-to-csv-in-python/)

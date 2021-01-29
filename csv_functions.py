@@ -4,7 +4,7 @@ This module has CSV functions
 
 import csv
 import os
-from typing import Dict
+from typing import Dict, List
 
 
 PLAYER_STATS_CSV = 'player_stats.csv'
@@ -27,3 +27,21 @@ def dict_to_csv(player_dict: Dict[str, str]) -> None:
         for value in player_dict.values():
             player_values.append(value)
         writer.writerow(player_values)
+
+
+def write_header(players: List[Dict[str, str]]) -> None:
+    field_names = players[0].keys()
+    with open(PLAYER_STATS_CSV, 'w', newline='') as csv_file:
+        writer = csv.writer(csv_file)
+        writer.writerow(field_names)
+
+
+# Write me please
+def append_to_csv(players: List[Dict[str, str]]) -> None:
+    with open(PLAYER_STATS_CSV, 'a', newline='') as csv_file:
+        writer = csv.writer(csv_file)
+        for player in players:
+            player_values = []
+            for column_value in player.values():
+                player_values.append(column_value)
+            writer.writerow(player_values)
