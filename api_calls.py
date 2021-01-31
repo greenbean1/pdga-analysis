@@ -2,8 +2,6 @@
 This module has the PDGA API calls
 """
 
-# TODO Read about newlines
-# TODO Test update_pdga_api_session_info_file function
 
 from http import HTTPStatus
 import json
@@ -13,7 +11,7 @@ from typing import Dict, List
 import csv_functions
 
 PDGA_BEAU_INFO_FILE = 'pdga_beau_info.txt'
-PDGA_SESSION_INFO_FILE = 'old_pdga_api_info.txt'
+PDGA_SESSION_INFO_FILE = 'old_pdga_session_api_info.txt'
 API_LOGIN_URL = 'https://api.pdga.com/services/json/user/login'
 EAGLE_STATS_URL = 'https://api.pdga.com/services/json/player-statistics?pdga_number=37817'
 SESSION_NAME = 'session_name'
