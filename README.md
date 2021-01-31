@@ -23,3 +23,4 @@ This is a data analysis project exploring PDGA player information
 2. [Requests Library](https://requests.readthedocs.io/en/master/)
 3. [Working with JSON](https://www.geeksforgeeks.org/convert-json-to-csv-in-python/)
 4. [Flourish](https://flourish.studio/visualisations/maps/?utm_source=showcase&utm_campaign=visualisation/4424060)
+5. [New Lines](https://www.freecodecamp.org/news/python-new-line-and-how-to-python-print-without-a-newline/) - These primarily indicate the end of a line
