@@ -73,12 +73,15 @@ def get_mpo_us_player_stats() -> None:
     limit = 200  # Varies between 10 and 200
     offset = 0  # 0+
     results_count = 0
-    url_string = f'https://api.pdga.com/services/json/player-statistics?division_code=MPO&country=US&limit={limit}&offset={offset}'
     while True:  # while True -> in loop if get no data then break
         try:
             # print('Trying old PDGA session info')
             old_pdga_session_info = _get_old_pdga_session_info()
-            players_list = get_player_stats(url_string, old_pdga_session_info[SESSION_NAME], old_pdga_session_info[SESSION_ID])
+            url_string = 'https://api.pdga.com/services/json/player-statistics?'
+            url_string += f'division_code=MPO&country=US&year=2020&limit={limit}&offset={offset}'
+            players_list = get_player_stats(url_string,
+                                            old_pdga_session_info[SESSION_NAME],
+                                            old_pdga_session_info[SESSION_ID])
             response_length = len(players_list)
             # print(f'Response Length = {response_length}')
             if offset == 0:

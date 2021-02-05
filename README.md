@@ -1,10 +1,8 @@
 # PDGA Analysis
 This is a data analysis project exploring PDGA player information
 
-## Next Goal: Get lots of player info (hella JSON)
-1. Use API query's limit, offset, division_code, country parameters
-2. Get 200 players with each query, offset by 1 then continue
-3. How to save these 200 players? Append to a dataframe?
+## Next Goal: Get lots of player info (via Player Search API)
+Change from Player Statistics to Player Search
 
 ## Project Milestones
 ~~1. Pull down JSON of Eagle McMahon via Requests Library~~
