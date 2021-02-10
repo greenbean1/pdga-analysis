@@ -1,7 +1,7 @@
 # PDGA Analysis
 This is a data analysis project exploring PDGA player information
 
-## Next Goal: Get lots of player info (via Player Search API)
+## Next Goal: Make dataframe with PDGA & state population info
 Change from Player Statistics to Player Search
 
 ## Project Milestones
@@ -11,10 +11,11 @@ Change from Player Statistics to Player Search
 
 ~~3. Save Eagle McMahon's JSON into a CSV~~
 
-4. Pull down JSON and save into CSV along the way of all MPO, US players
-6. Get state population CSV (Census Bureau)
-7. Create dataframe merging CSVs with population data, number of players rated 1000+
-8. Create heat map data viz (Notebook? Seaborn/Plotly/Dash/Flourish)
+~~4. Pull down JSON and save into CSV along the way of all MPO, US players~~
+
+5. Get state population CSV (Census Bureau)
+6. Create dataframe merging CSVs with population data, number of players rated 1000+
+7. Create heat map data viz (Notebook? Seaborn/Plotly/Dash/Flourish)
 
 ## Things I Learned (or at least started learning)
 1. [HTTP Status Codes](https://www.restapitutorial.com/httpstatuscodes.html)

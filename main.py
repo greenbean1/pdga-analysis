@@ -7,5 +7,7 @@ This is where the main magic happens and it all comes together
 import api_calls
 
 if __name__ == '__main__':
-    api_calls.get_mpo_us_player_stats()  # player_info is a dictionary
+    # api_calls.get_mpo_us_player_stats()  # player_info is a dictionary
     # print(api_calls.get_player_stats_via_pdga_number(38464))
+    # print(api_calls.get_player_search_data_via_pdga_number(37817))
+    api_calls.get_mpo_us_player_search_data()
