@@ -3,6 +3,7 @@ This is where the main magic happens and it all comes together
 """
 
 # Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+# Option Parser (ex: command line option to just get data)
 
 import api_calls
 import dataframes
