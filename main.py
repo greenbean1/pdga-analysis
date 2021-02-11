@@ -5,9 +5,11 @@ This is where the main magic happens and it all comes together
 # Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
 
 import api_calls
+import dataframes
+import os
+
 
 if __name__ == '__main__':
-    # api_calls.get_mpo_us_player_stats()  # player_info is a dictionary
-    # print(api_calls.get_player_stats_via_pdga_number(38464))
-    # print(api_calls.get_player_search_data_via_pdga_number(37817))
-    api_calls.get_mpo_us_player_search_data()
+    # api_calls.get_mpo_us_player_search_data()
+    dataframes.make_df()
+    # print(os.getcwd())
