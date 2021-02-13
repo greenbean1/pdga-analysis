@@ -19,7 +19,8 @@ Change from Player Statistics to Player Search
 
 7. Create dataframe merging CSVs with population data, number of players rated 1000+
 8. Create heat map data viz (Notebook? Seaborn/Plotly/Dash/Flourish)
-9. Do Pandas munging without relying on SQL/Query functionality
+9. Refactor code (ex: truly use constants module)
+10. Do Pandas munging without relying on SQL/Query functionality
 
 ## Things I Learned (or at least started learning)
 1. [HTTP Status Codes](https://www.restapitutorial.com/httpstatuscodes.html)
@@ -33,3 +34,4 @@ Change from Player Statistics to Player Search
 9. [Iterating Through Dataframes](https://thispointer.com/pandas-6-different-ways-to-iterate-over-rows-in-a-dataframe-update-while-iterating-row-by-row/)
 10. [Adding Columns to Dataframes Based on Criteria](https://www.dataquest.io/blog/tutorial-add-column-pandas-dataframe-based-on-if-else-condition/)
 11. [Aggregations in Pandas](https://www.shanelynn.ie/summarising-aggregation-and-grouping-data-in-python-pandas/#a-sample-dataframe)
+12. [Merging Data in Pandas](https://www.tutorialspoint.com/python_pandas/python_pandas_merging_joining.htm)

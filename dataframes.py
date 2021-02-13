@@ -59,8 +59,21 @@ def make_dg_summary_df():
         num_1000_pros=('flag_1000', 'sum')
     )
     df_agg = df_agg.reset_index()
+    df_agg.rename(columns={'state_prov': 'State'}, inplace=True)
     return df_agg
 
 
 def combine_dg_and_pop_data():
-    df_combined =
+    df_dg = make_dg_summary_df()
+    df_pop = load_state_pop_data()
+    df_combined = pd.merge(df_dg, df_pop, how='left', on='State')
+    # df_combined['Population'].fillna(1, inplace=True)
+    print(df_combined.info())
+    return df_combined
+
+
+def add_density_metrics(df):
+    df['density_total_pro'] = df['num_total_pros'] / df['Population']
+    df['density_950+'] = df['num_950_pros'] / df['Population']
+    df['density_1000+'] = df['num_1000+_pros'] / df['Population']
+    return df
