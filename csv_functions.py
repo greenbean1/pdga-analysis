@@ -4,10 +4,11 @@ This module has CSV functions
 
 import csv
 import os
-from typing import Dict, List
+from typing import Dict, List, Any
 
 
 PLAYER_STATS_CSV = 'player_stats.csv'
+FIXED_PLAYER_STATS_CSV = 'fixed_player_stats.csv'
 
 
 def delete_player_stats_csv():
@@ -47,8 +48,8 @@ def append_to_csv(players: List[Dict[str, str]]) -> None:
             writer.writerow(player_values)
 
 
-def find_messy_row_data() -> Dict[int, str]:
-    messy_row_data_dict = {}
+def get_correct_data() -> Dict[int, Any]:
+    fixed_data_dict = {}
     correct_rows = ['first_name', 'last_name', 'pdga_number', 'membership_status', 'membership_expiration_date',
                     'classification']
     old_to_new_mappings = {'rating': 'city', 'rating_effective_date': 'state_prov', 'official_status': 'country',
@@ -56,36 +57,33 @@ def find_messy_row_data() -> Dict[int, str]:
     with open(PLAYER_STATS_CSV, 'r', newline='') as csv_file_read:
         reader = csv.DictReader(csv_file_read)
         for i, row in enumerate(reader):
+            if i == 0:
+                header_names = list(row.keys())
+            row_contents = []
             if not row['official_status']:  # AKA if value in the official_status column is missing
-                row_contents = []
                 # First get columns that are correct_rows
                 for correct_value in correct_rows:
                     row_contents.append(row[correct_value])
                 # Then blank x3
                 for j in range(3):
                     row_contents.append("")
-                # Lastly rating = city, rating_effective_date =  state_prov, official_status = country, official_expiration_date = rating, last_modified = rating_effective_date
+                # Lastly map old columns to new correct column values as shown above in dictionary
                 messy_cols = old_to_new_mappings.keys()
-                for cnt, messy_col in enumerate(messy_cols):
+                for messy_col in messy_cols:
                     # row[messy_col] = row[old_to_new_mappings[messy_col]]
                     row_contents.append(row[old_to_new_mappings[messy_col]])  # Add to row the mapped correct values
-                messy_row_data_dict[i] = row_contents
-                # add logic to capture correct row data
-    print(messy_row_data_dict)
-    return messy_row_data_dict
-    # with open(PLAYER_STATS_CSV, 'w', newline='') as csv_file_write:
-    #     writer = csv.writer(csv_file_write)
-    #     for i, row in enumerate(writer):
-    #         if i in rows_to_clean:
-    #             print('yay')
+                # messy_row_data_dict[i] = row_contents
+            else:  # AKA if the data in that row is already correct
+                for correct_value in row:
+                    row_contents.append(row[correct_value])
+            fixed_data_dict[i] = row_contents
+    print(fixed_data_dict)
+    return header_names, fixed_data_dict
 
-    #     csv_reader = csv.reader(csv_file)
-    # with open(PLAYER_STATS_CSV, 'r', newline='') as csv_file:
-    #     csv_reader = csv.reader(csv_file)
-    #     for row in csv_reader:
-    #         if row.index_col(10) in (None, ""):
-    #             print('hi')
 
-    # if column 12 (official_status) is empty
-        # append row number to rows_to_clean
-        # Move column data over 3 columns
+def make_corrected_csv(header_names: List[str], correct_data: Dict[int, Any]) -> None:
+    with open(FIXED_PLAYER_STATS_CSV, 'w', newline='') as csv_file:
+        writer = csv.writer(csv_file)
+        writer.writerow(header_names)
+        for correct_row in correct_data.values():
+            writer.writerow(correct_row)

@@ -13,11 +13,10 @@ from pathlib import Path
 
 
 directory = os.getcwd()
-filename = 'smalltest.csv'  # switch to player_search_data.csv
+filename = 'fixed_player_stats.csv'  # switch to player_search_data.csv
 path_name = os.path.join(directory, filename)
 
 
 def make_df():
-    df_players = pd.read_csv(path_name, encoding='utf-8')
+    df_players = pd.read_csv(path_name, engine='python')
     print(df_players)
-    #pandas to_string method to format df as desired
