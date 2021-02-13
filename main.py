@@ -14,5 +14,5 @@ if __name__ == '__main__':
     # api_calls.get_mpo_us_player_search_data()
     # header_names, correct_data = csv_functions.get_correct_data()
     # csv_functions.make_corrected_csv(header_names, correct_data)
-    dataframes.make_df()
-    # print(os.getcwd())
+    # dataframes.load_state_pop_data()
+    dataframes.make_dg_summary_df()

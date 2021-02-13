@@ -2,7 +2,6 @@
 This module has the PDGA API calls
 """
 
-# TODO Pare down query to reduce result set... MPO US is over 200k (filter for only active/nonzero rating?)
 
 from http import HTTPStatus
 import json
