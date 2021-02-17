@@ -8,13 +8,8 @@ import json
 import requests
 from typing import Dict, List
 
+import constants as c
 import csv_functions
-
-PDGA_BEAU_INFO_FILE = 'pdga_beau_info.txt'
-PDGA_SESSION_INFO_FILE = 'old_pdga_session_api_info.txt'
-API_LOGIN_URL = 'https://api.pdga.com/services/json/user/login'
-SESSION_NAME = 'session_name'
-SESSION_ID = 'sessid'
 
 
 class SessionExpired(Exception):
@@ -23,37 +18,37 @@ class SessionExpired(Exception):
 
 def _get_pdga_login() -> Dict[str, str]:
     print('Getting PDGA login info')
-    with open(PDGA_BEAU_INFO_FILE, 'r') as pc:
+    with open(c.PDGA_BEAU_INFO_FILE, 'r') as pc:
         info = pc.read().splitlines()
     return {'username': info[0], 'password': info[1]}
 
 
 def _update_pdga_api_session_info_file(session_info: Dict[str, str]) -> None:
     print('Setting PDGA API session info')
-    with open(PDGA_SESSION_INFO_FILE, 'w') as pc:
-        pc.write(session_info[SESSION_NAME])
+    with open(c.PDGA_SESSION_INFO_FILE, 'w') as pc:
+        pc.write(session_info[c.SESSION_NAME])
         pc.write('\n')
-        pc.write(session_info[SESSION_ID])
+        pc.write(session_info[c.SESSION_ID])
         pc.write('\n')
 
 
 #  Returns session_name and sessid of new PDGA API login
 def _get_new_pdga_session_info() -> Dict[str, str]:
     print('Getting new PDGA API session info')
-    request_login = requests.post(API_LOGIN_URL, data=_get_pdga_login())
+    request_login = requests.post(c.API_LOGIN_URL, data=_get_pdga_login())
     login_response = request_login.text  # Refactor here: requests_login.json
     login_response_dict = json.loads(login_response)
     print('API Login Response dictionary:')
     print(login_response_dict)
     _update_pdga_api_session_info_file(login_response_dict)
-    return {SESSION_NAME: login_response_dict[SESSION_NAME], SESSION_ID: login_response_dict[SESSION_ID]}
+    return {c.SESSION_NAME: login_response_dict[c.SESSION_NAME], c.SESSION_ID: login_response_dict[c.SESSION_ID]}
 
 
 def _get_old_pdga_session_info() -> Dict[str, str]:
     # print('Getting old PDGA API session info')
-    with open(PDGA_SESSION_INFO_FILE, 'r') as pc:
+    with open(c.PDGA_SESSION_INFO_FILE, 'r') as pc:
         info = pc.read().splitlines()
-    return {SESSION_NAME: info[0], SESSION_ID: info[1]}
+    return {c.SESSION_NAME: info[0], c.SESSION_ID: info[1]}
 
 
 def get_player_info(url: str, session_name: str, sessid: str) -> List[Dict[str, str]]:
@@ -91,8 +86,8 @@ def get_mpo_us_player_stats() -> None:
             url_string = 'https://api.pdga.com/services/json/player-statistics?'
             url_string += f'division_code=MPO&country=US&year=2020&limit={limit}&offset={offset}'
             players_list = get_player_info(url_string,
-                                           old_pdga_session_info[SESSION_NAME],
-                                           old_pdga_session_info[SESSION_ID])
+                                           old_pdga_session_info[c.SESSION_NAME],
+                                           old_pdga_session_info[c.SESSION_ID])
             response_length = len(players_list)
             # print(f'Response Length = {response_length}')
             if offset == 0:
@@ -139,8 +134,8 @@ def get_mpo_us_player_search_data() -> None:
             url_string = 'https://api.pdga.com/services/json/players?'
             url_string += f'class=P&country=US&limit={limit}&offset={offset}'
             players_list = get_player_info(url_string,
-                                           old_pdga_session_info[SESSION_NAME],
-                                           old_pdga_session_info[SESSION_ID])
+                                           old_pdga_session_info[c.SESSION_NAME],
+                                           old_pdga_session_info[c.SESSION_ID])
             response_length = len(players_list)
             # print(f'Response Length = {response_length}')
             if offset == 0:

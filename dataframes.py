@@ -8,18 +8,12 @@ Use csv library to clean
 """
 
 import numpy as np
-import os
 import pandas as pd
 
 import constants as c
 
 
-directory = os.getcwd()
-filename = 'fixed_player_stats.csv'  # switch to player_search_data.csv
-path_name = os.path.join(directory, filename)
-
-
-def _clean_state_pop_data(df):
+def _clean_state_pop_data(df: pd.DataFrame) -> pd.DataFrame:
     df.columns = ['State', 'Population']
     for index, row in df.iterrows():
         df.at[index, 'State'] = row['State'][1:]
@@ -50,7 +44,7 @@ def _add_rating_flags(df):
 
 
 def make_dg_summary_df():
-    df_players = pd.read_csv(path_name, engine='python')
+    df_players = pd.read_csv(c.path_name_dg_csv, engine='python')
     df_players = _state_abbreviations_to_full(df_players)
     df_players = _add_rating_flags(df_players)
     df_agg = df_players.groupby('state_prov').agg(
@@ -67,7 +61,6 @@ def combine_dg_and_pop_data():
     df_dg = make_dg_summary_df()
     df_pop = load_state_pop_data()
     df_combined = pd.merge(df_dg, df_pop, how='left', on='State')
-    # df_combined['Population'].fillna(1, inplace=True)
     print(df_combined.info())
     return df_combined
 

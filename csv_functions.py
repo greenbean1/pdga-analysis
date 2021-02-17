@@ -6,14 +6,12 @@ import csv
 import os
 from typing import Dict, List, Any
 
-
-PLAYER_STATS_CSV = 'player_stats.csv'
-FIXED_PLAYER_STATS_CSV = 'fixed_player_stats.csv'
+import constants as c
 
 
 def delete_player_stats_csv():
     try:
-        os.remove(PLAYER_STATS_CSV)
+        os.remove(c.PLAYER_STATS_CSV)
         print('Successfully deleted player stats csv')
     except OSError:
         print('No player stats file to delete')
@@ -21,7 +19,7 @@ def delete_player_stats_csv():
 
 def dict_to_csv(player_dict: Dict[str, str]) -> None:
     field_names = player_dict.keys()
-    with open(PLAYER_STATS_CSV, 'w', newline='') as csv_file:
+    with open(c.PLAYER_STATS_CSV, 'w', newline='') as csv_file:
         writer = csv.writer(csv_file)
         writer.writerow(field_names)
         player_values = []
@@ -32,14 +30,13 @@ def dict_to_csv(player_dict: Dict[str, str]) -> None:
 
 def write_header(players: List[Dict[str, str]]) -> None:
     field_names = players[0].keys()
-    with open(PLAYER_STATS_CSV, 'w', newline='') as csv_file:
+    with open(c.PLAYER_STATS_CSV, 'w', newline='') as csv_file:
         writer = csv.writer(csv_file)
         writer.writerow(field_names)
 
 
-# Write me please
 def append_to_csv(players: List[Dict[str, str]]) -> None:
-    with open(PLAYER_STATS_CSV, 'a', newline='') as csv_file:
+    with open(c.PLAYER_STATS_CSV, 'a', newline='') as csv_file:
         writer = csv.writer(csv_file)
         for player in players:
             player_values = []
@@ -54,7 +51,7 @@ def get_correct_data() -> Dict[int, Any]:
                     'classification']
     old_to_new_mappings = {'rating': 'city', 'rating_effective_date': 'state_prov', 'official_status': 'country',
                            'official_expiration_date': 'rating', 'last_modified': 'rating_effective_date'}
-    with open(PLAYER_STATS_CSV, 'r', newline='') as csv_file_read:
+    with open(c.PLAYER_STATS_CSV, 'r', newline='') as csv_file_read:
         reader = csv.DictReader(csv_file_read)
         for i, row in enumerate(reader):
             if i == 0:
@@ -70,9 +67,7 @@ def get_correct_data() -> Dict[int, Any]:
                 # Lastly map old columns to new correct column values as shown above in dictionary
                 messy_cols = old_to_new_mappings.keys()
                 for messy_col in messy_cols:
-                    # row[messy_col] = row[old_to_new_mappings[messy_col]]
                     row_contents.append(row[old_to_new_mappings[messy_col]])  # Add to row the mapped correct values
-                # messy_row_data_dict[i] = row_contents
             else:  # AKA if the data in that row is already correct
                 for correct_value in row:
                     row_contents.append(row[correct_value])
@@ -82,7 +77,7 @@ def get_correct_data() -> Dict[int, Any]:
 
 
 def make_corrected_csv(header_names: List[str], correct_data: Dict[int, Any]) -> None:
-    with open(FIXED_PLAYER_STATS_CSV, 'w', newline='') as csv_file:
+    with open(c.FIXED_PLAYER_STATS_CSV, 'w', newline='') as csv_file:
         writer = csv.writer(csv_file)
         writer.writerow(header_names)
         for correct_row in correct_data.values():
