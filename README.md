@@ -1,8 +1,11 @@
 # PDGA Analysis
 This is a data analysis project exploring PDGA player information
 
-## Next Goal: Make dataframe with PDGA & state population info
-Change from Player Statistics to Player Search
+## Next Goal: Refactor Code
+1. Consolidate constants in constants module
+2. Add link to Tableau Public viz
+3. Add Motivation, How Does This Work, Potential Next Steps & Credits 
+4. Code Review with Dad -> how to better organize within modules?
 
 ## Project Milestones
 ~~1. Pull down JSON of Eagle McMahon via Requests Library~~
@@ -17,10 +20,11 @@ Change from Player Statistics to Player Search
 
 ~~6. Get state population CSV (Census Bureau - including 54 "states)~~
 
-7. Create dataframe merging CSVs with population data, number of players rated 1000+
-8. Create heat map data viz (Notebook? Seaborn/Plotly/Dash/Flourish)
+~~7. Create dataframe merging CSVs with population data, number of players rated 1000+~~
+
+~~8. Create heat map data viz (Notebook? Seaborn/Plotly/Dash/Flourish)~~
+
 9. Refactor code (ex: truly use constants module)
-10. Do Pandas munging without relying on SQL/Query functionality
 
 ## Things I Learned (or at least started learning)
 1. [HTTP Status Codes](https://www.restapitutorial.com/httpstatuscodes.html)
@@ -35,3 +39,7 @@ Change from Player Statistics to Player Search
 10. [Adding Columns to Dataframes Based on Criteria](https://www.dataquest.io/blog/tutorial-add-column-pandas-dataframe-based-on-if-else-condition/)
 11. [Aggregations in Pandas](https://www.shanelynn.ie/summarising-aggregation-and-grouping-data-in-python-pandas/#a-sample-dataframe)
 12. [Merging Data in Pandas](https://www.tutorialspoint.com/python_pandas/python_pandas_merging_joining.htm)
+
+## Potential Next Steps
+1. For visualization: Dash, Plotly, Flourish, Chartify instead of Tableau
+2. Analyze European disc golf growth (Pick top few countries -> tournament & course growth)
