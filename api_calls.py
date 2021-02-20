@@ -63,7 +63,7 @@ def get_player_info(url: str, session_name: str, sessid: str) -> List[Dict[str, 
         return player_info.json().get('players')  # look into DotDict; lazy since could cause crash
 
 
-def get_player_stats_via_pdga_number(pdga_number: int) -> Dict[str, str]:
+def get_player_stats_via_pdga_number(pdga_number: int) -> List[Dict[str, str]]:
     api_url = f'https://api.pdga.com/services/json/player-statistics?pdga_number={pdga_number}'
     try:
         print('Trying old PDGA session info')
@@ -103,15 +103,15 @@ def get_mpo_us_player_stats() -> None:
                 print('Results count > 200000')
                 break
         except SessionExpired:  # Ask about correct way to do this!
+            # Need to actually implement this
             print('Trying new PDGA session info')
-            break
-            # Set txt file credentials!!
             # new_pdga_session_info = _get_new_pdga_session_info()
             # return get_player_info(url_string, new_pdga_session_info['session_name'], new_pdga_session_info['sessid'])
+            break
     print(f'Total players returned: {results_count}')
 
 
-def get_player_search_data_via_pdga_number(pdga_number: int) -> Dict[str, str]:
+def get_player_search_data_via_pdga_number(pdga_number: int) -> List[Dict[str, str]]:
     api_url = f'https://api.pdga.com/services/json/players?pdga_number={pdga_number}'
     try:
         print('Trying old PDGA session info')
@@ -151,9 +151,9 @@ def get_mpo_us_player_search_data() -> None:
                 print('Results count > 700000')
                 break
         except SessionExpired:  # Ask about correct way to do this!
+            # Need to actually implement this
             print('Trying new PDGA session info')
-            break
-            # Set txt file credentials!!
             # new_pdga_session_info = _get_new_pdga_session_info()
             # return get_player_info(url_string, new_pdga_session_info['session_name'], new_pdga_session_info['sessid'])
+            break
     print(f'Total players returned: {results_count}')

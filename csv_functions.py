@@ -4,7 +4,7 @@ This module has CSV functions
 
 import csv
 import os
-from typing import Dict, List, Any
+from typing import Any, Dict, List, Tuple
 
 import constants as c
 
@@ -45,7 +45,7 @@ def append_to_csv(players: List[Dict[str, str]]) -> None:
             writer.writerow(player_values)
 
 
-def get_correct_data() -> Dict[int, Any]:
+def get_correct_data() -> Tuple[List[str], Dict[int, List[Any]]]:
     fixed_data_dict = {}
     correct_rows = ['first_name', 'last_name', 'pdga_number', 'membership_status', 'membership_expiration_date',
                     'classification']
