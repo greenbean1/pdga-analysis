@@ -15,13 +15,7 @@ PDGA player information
    [Pandas](https://github.com/greenbean1/pdga-analysis/blob/main/dataframes.py).
 3. When running [main()](https://github.com/greenbean1/pdga-analysis/blob/main/main.py), 
    there are different options to choose from based on what is desired (ADD MORE HERE)
-
-## Next Goal: Refactor Code
-1. Type Hints: Clean up & Add for Dataframes
-2. Indicate private vs public functions
-3. Flush out API Calls' SessionExpired class?
-4. Think about next project (Gsheets API?)
-
+   
 ## Misc
 
 ### Project Milestones
@@ -41,7 +35,7 @@ PDGA player information
 
 ~~8. Create heat map data viz (Notebook? Seaborn/Plotly/Dash/Flourish)~~
 
-9. Refactor code (ex: truly use constants module)
+~~9. Refactor code (ex: truly use constants module)~~
 
 ### Things I Learned (or at least started learning)
 1. [HTTP Status Codes](https://www.restapitutorial.com/httpstatuscodes.html)

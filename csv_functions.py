@@ -17,17 +17,6 @@ def delete_player_stats_csv():
         print('No player stats file to delete')
 
 
-def dict_to_csv(player_dict: Dict[str, str]) -> None:
-    field_names = player_dict.keys()
-    with open(c.PLAYER_STATS_CSV, 'w', newline='') as csv_file:
-        writer = csv.writer(csv_file)
-        writer.writerow(field_names)
-        player_values = []
-        for value in player_dict.values():
-            player_values.append(value)
-        writer.writerow(player_values)
-
-
 def write_header(players: List[Dict[str, str]]) -> None:
     field_names = players[0].keys()
     with open(c.PLAYER_STATS_CSV, 'w', newline='') as csv_file:

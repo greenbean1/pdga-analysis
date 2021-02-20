@@ -51,7 +51,7 @@ def _get_old_pdga_session_info() -> Dict[str, str]:
     return {c.SESSION_NAME: info[0], c.SESSION_ID: info[1]}
 
 
-def get_player_info(url: str, session_name: str, sessid: str) -> List[Dict[str, str]]:
+def _get_player_info(url: str, session_name: str, sessid: str) -> List[Dict[str, str]]:
     # print('Getting player info')
     player_info = requests.get(url, cookies={session_name: sessid})
     if player_info.status_code != HTTPStatus.OK:
@@ -68,11 +68,11 @@ def get_player_stats_via_pdga_number(pdga_number: int) -> List[Dict[str, str]]:
     try:
         print('Trying old PDGA session info')
         old_pdga_session_info = _get_old_pdga_session_info()
-        return get_player_info(api_url, old_pdga_session_info['session_name'], old_pdga_session_info['sessid'])
+        return _get_player_info(api_url, old_pdga_session_info['session_name'], old_pdga_session_info['sessid'])
     except SessionExpired:  # Ask about correct way to do this!
         print('Trying new PDGA session info')
         new_pdga_session_info = _get_new_pdga_session_info()
-        return get_player_info(api_url, new_pdga_session_info['session_name'], new_pdga_session_info['sessid'])
+        return _get_player_info(api_url, new_pdga_session_info['session_name'], new_pdga_session_info['sessid'])
 
 
 def get_mpo_us_player_stats() -> None:
@@ -85,9 +85,9 @@ def get_mpo_us_player_stats() -> None:
             old_pdga_session_info = _get_old_pdga_session_info()
             url_string = 'https://api.pdga.com/services/json/player-statistics?'
             url_string += f'division_code=MPO&country=US&year=2020&limit={limit}&offset={offset}'
-            players_list = get_player_info(url_string,
-                                           old_pdga_session_info[c.SESSION_NAME],
-                                           old_pdga_session_info[c.SESSION_ID])
+            players_list = _get_player_info(url_string,
+                                            old_pdga_session_info[c.SESSION_NAME],
+                                            old_pdga_session_info[c.SESSION_ID])
             response_length = len(players_list)
             # print(f'Response Length = {response_length}')
             if offset == 0:
@@ -106,7 +106,7 @@ def get_mpo_us_player_stats() -> None:
             # Need to actually implement this
             print('Trying new PDGA session info')
             # new_pdga_session_info = _get_new_pdga_session_info()
-            # return get_player_info(url_string, new_pdga_session_info['session_name'], new_pdga_session_info['sessid'])
+            # return _get_player_info(url_string, new_pdga_session_info['session_name'], new_pdga_session_info['sessid'])
             break
     print(f'Total players returned: {results_count}')
 
@@ -116,11 +116,11 @@ def get_player_search_data_via_pdga_number(pdga_number: int) -> List[Dict[str, s
     try:
         print('Trying old PDGA session info')
         old_pdga_session_info = _get_old_pdga_session_info()
-        return get_player_info(api_url, old_pdga_session_info['session_name'], old_pdga_session_info['sessid'])
+        return _get_player_info(api_url, old_pdga_session_info['session_name'], old_pdga_session_info['sessid'])
     except SessionExpired:  # Ask about correct way to do this!
         print('Trying new PDGA session info')
         new_pdga_session_info = _get_new_pdga_session_info()
-        return get_player_info(api_url, new_pdga_session_info['session_name'], new_pdga_session_info['sessid'])
+        return _get_player_info(api_url, new_pdga_session_info['session_name'], new_pdga_session_info['sessid'])
 
 
 def get_mpo_us_player_search_data() -> None:
@@ -133,9 +133,9 @@ def get_mpo_us_player_search_data() -> None:
             old_pdga_session_info = _get_old_pdga_session_info()
             url_string = 'https://api.pdga.com/services/json/players?'
             url_string += f'class=P&country=US&limit={limit}&offset={offset}'
-            players_list = get_player_info(url_string,
-                                           old_pdga_session_info[c.SESSION_NAME],
-                                           old_pdga_session_info[c.SESSION_ID])
+            players_list = _get_player_info(url_string,
+                                            old_pdga_session_info[c.SESSION_NAME],
+                                            old_pdga_session_info[c.SESSION_ID])
             response_length = len(players_list)
             # print(f'Response Length = {response_length}')
             if offset == 0:
@@ -154,6 +154,6 @@ def get_mpo_us_player_search_data() -> None:
             # Need to actually implement this
             print('Trying new PDGA session info')
             # new_pdga_session_info = _get_new_pdga_session_info()
-            # return get_player_info(url_string, new_pdga_session_info['session_name'], new_pdga_session_info['sessid'])
+            # return _get_player_info(url_string, new_pdga_session_info['session_name'], new_pdga_session_info['sessid'])
             break
     print(f'Total players returned: {results_count}')
