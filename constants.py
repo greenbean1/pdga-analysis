@@ -19,10 +19,10 @@ SESSION_NAME = 'session_name'
 SESSION_ID = 'sessid'
 API_URL_HEAD = 'https://api.pdga.com/services/json/'
 API_LOGIN_URL = API_URL_HEAD + 'user/login'
-# PLAYER_SEARCH_URL
-# PLAYER_STATS_URL
-EVENT_SEARCH_URL = API_URL_HEAD + 'event'
-# COURSE_SEARCH_URL
+PLAYER_SEARCH_URL = API_URL_HEAD + 'players?'
+PLAYER_STATS_URL = API_URL_HEAD + 'player-statistics?'
+EVENT_SEARCH_URL = API_URL_HEAD + 'event?'
+COURSE_SEARCH_URL = API_URL_HEAD + 'course?'
 # Query Options Here
 PLAYER_SEARCH = 0
 PLAYER_STATS = 1
