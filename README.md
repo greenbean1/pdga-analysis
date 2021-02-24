@@ -37,6 +37,7 @@ PDGA player information
 
 ~~9. Refactor code (ex: truly use constants module)~~
 
+TODO Add link to specific Census data
 ### Things I Learned (or at least started learning)
 1. [HTTP Status Codes](https://www.restapitutorial.com/httpstatuscodes.html)
 2. [Requests Library](https://requests.readthedocs.io/en/master/)
@@ -50,6 +51,7 @@ PDGA player information
 10. [Adding Columns to Dataframes Based on Criteria](https://www.dataquest.io/blog/tutorial-add-column-pandas-dataframe-based-on-if-else-condition/)
 11. [Aggregations in Pandas](https://www.shanelynn.ie/summarising-aggregation-and-grouping-data-in-python-pandas/#a-sample-dataframe)
 12. [Merging Data in Pandas](https://www.tutorialspoint.com/python_pandas/python_pandas_merging_joining.htm)
+13. Use a constants module heavily for consistency - more robust code quicker & easier
 
 ### Potential Next Steps
 1. For visualization: Dash, Plotly, Flourish, Chartify instead of Tableau

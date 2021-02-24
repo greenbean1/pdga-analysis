@@ -1,5 +1,5 @@
 """
-This module has CSV functions
+This module has functions relating to CSV files
 """
 
 import csv
@@ -9,15 +9,7 @@ from typing import Any, Dict, List, Tuple
 import constants as c
 
 
-def delete_player_stats_csv():
-    try:
-        os.remove(c.PLAYER_STATS_CSV)
-        print('Successfully deleted player stats csv')
-    except OSError:
-        print('No player stats file to delete')
-
-
-def write_header(players: List[Dict[str, str]]) -> None:
+def write_header(players: List[Dict[str, str]]) -> None:  # Could add to constants.py: PLAYERS = List[Dict[str, str]]
     field_names = players[0].keys()
     with open(c.PLAYER_STATS_CSV, 'w', newline='') as csv_file:
         writer = csv.writer(csv_file)
@@ -34,7 +26,7 @@ def append_to_csv(players: List[Dict[str, str]]) -> None:
             writer.writerow(player_values)
 
 
-def get_correct_data() -> Tuple[List[str], Dict[int, List[Any]]]:
+def _get_correct_data() -> Tuple[List[str], Dict[int, List[Any]]]:
     fixed_data_dict = {}
     correct_rows = ['first_name', 'last_name', 'pdga_number', 'membership_status', 'membership_expiration_date',
                     'classification']
@@ -61,11 +53,11 @@ def get_correct_data() -> Tuple[List[str], Dict[int, List[Any]]]:
                 for correct_value in row:
                     row_contents.append(row[correct_value])
             fixed_data_dict[i] = row_contents
-    print(fixed_data_dict)
     return header_names, fixed_data_dict
 
 
-def make_corrected_csv(header_names: List[str], correct_data: Dict[int, Any]) -> None:
+def make_corrected_csv() -> None:
+    header_names, correct_data = _get_correct_data()
     with open(c.FIXED_PLAYER_STATS_CSV, 'w', newline='') as csv_file:
         writer = csv.writer(csv_file)
         writer.writerow(header_names)

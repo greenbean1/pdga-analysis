@@ -15,9 +15,19 @@ final_dataset_path = os.path.join(directory, FINAL_DATASET_CSV)
 # API Calls
 PDGA_BEAU_INFO_FILE = 'pdga_beau_info.txt'
 PDGA_SESSION_INFO_FILE = 'old_pdga_session_api_info.txt'
-API_LOGIN_URL = 'https://api.pdga.com/services/json/user/login'
 SESSION_NAME = 'session_name'
 SESSION_ID = 'sessid'
+API_URL_HEAD = 'https://api.pdga.com/services/json/'
+API_LOGIN_URL = API_URL_HEAD + 'user/login'
+# PLAYER_SEARCH_URL
+# PLAYER_STATS_URL
+EVENT_SEARCH_URL = API_URL_HEAD + 'event'
+# COURSE_SEARCH_URL
+# Query Options Here
+PLAYER_SEARCH = 0
+PLAYER_STATS = 1
+EVENT_SEARCH = 2
+COURSE_SEARCH = 3
 
 # CSV
 PLAYER_STATS_CSV = 'player_stats.csv'

@@ -1,10 +1,5 @@
 """
 This module has the pandas related functions for data munging
-
-
-Options:
-Manual data removal/fixing
-Use csv library to clean
 """
 
 import numpy as np
@@ -14,9 +9,9 @@ import constants as c
 
 
 def _clean_state_pop_data(df: pd.DataFrame) -> pd.DataFrame:
-    df.columns = ['State', 'Population']
+    df.columns = ['State', 'Population']  # Make columns consistent across PDGA & Census Data
     for index, row in df.iterrows():
-        df.at[index, 'State'] = row['State'][1:]
+        df.at[index, 'State'] = row['State'][1:]  # Remove prepended period before two-letter state abbreviation
     return df
 
 
@@ -61,12 +56,12 @@ def combine_dg_and_pop_data() -> pd.DataFrame:
     df_dg = make_dg_summary_df()
     df_pop = load_state_pop_data()
     df_combined = pd.merge(df_dg, df_pop, how='left', on='State')
-    print(df_combined.info())
+    # print(df_combined.info())
     return df_combined
 
 
-def add_density_metrics(df: pd.DataFrame) -> pd.DataFrame:
+# Test to confirm does not need to return itself
+def add_density_metrics(df: pd.DataFrame):
     df['density_total_pro'] = df['num_total_pros'] / df['Population']
     df['density_950+'] = df['num_950_pros'] / df['Population']
     df['density_1000+'] = df['num_1000+_pros'] / df['Population']
-    return df
