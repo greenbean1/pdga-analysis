@@ -12,7 +12,7 @@ import dataframes
 
 
 if __name__ == '__main__':
-    api_calls.get_mpo_us_player_search_data()
+    print('hi')
     # if option = save then save if analyse then analyze -> Implement via PyCharm configurations
     # if option = get data
         # api_calls.get_mpo_us_player_search_data()
