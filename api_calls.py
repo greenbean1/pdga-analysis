@@ -77,7 +77,7 @@ def get_mpo_us_player_stats() -> None:
     limit = 200  # Varies between 10 and 200
     offset = 0  # 0+
     results_count = 0
-    while True:  # while True -> in loop if get no data then break
+    while True:
         try:
             # print('Trying old PDGA session info')
             old_pdga_session_info = _get_old_pdga_session_info()
@@ -87,7 +87,6 @@ def get_mpo_us_player_stats() -> None:
                                             old_pdga_session_info[c.SESSION_NAME],
                                             old_pdga_session_info[c.SESSION_ID])
             response_length = len(players_list)
-            # print(f'Response Length = {response_length}')
             if offset == 0:
                 csv_functions.write_header(players_list)
             csv_functions.append_to_csv(players_list)
@@ -125,33 +124,36 @@ def get_mpo_us_player_search_data() -> None:
     limit = 200  # Varies between 10 and 200
     offset = 0  # 0+
     results_count = 0
-    while True:  # while True -> in loop if get no data then break
-        try:
-            # print('Trying old PDGA session info')
+    while True:
+        url = c.PLAYER_SEARCH_URL + f'class=P&country=US&limit={limit}&offset={offset}'
+        try:  # Try / Except to handle old vs new PDGA session info
+            print('Trying old PDGA session info')
             old_pdga_session_info = _get_old_pdga_session_info()
-            url_string = 'https://api.pdga.com/services/json/players?'
-            url_string += f'class=P&country=US&limit={limit}&offset={offset}'
-            players_list = _get_player_info(url_string,  # TODO Keep this in try/except move all other outside try/except -> except "try" new player info
+            players_list = _get_player_info(url,
                                             old_pdga_session_info[c.SESSION_NAME],
                                             old_pdga_session_info[c.SESSION_ID])
-            response_length = len(players_list)
-            # print(f'Response Length = {response_length}')
-            if offset == 0:
-                csv_functions.write_header(players_list)
-            csv_functions.append_to_csv(players_list)
-            offset += limit
-            results_count += response_length
-            print(f'Cumulative players: {results_count}')
-            if response_length != limit:
-                print('Response length != limit')
-                break
-            if results_count > 700000:
-                print('Results count > 700000')
-                break
-        except APICallFailed:  # Ask about correct way to do this!
-            # Need to actually implement this
-            print('Trying new PDGA session info')
-            # new_pdga_session_info = _get_new_pdga_session_info()
-            # return _get_player_info(url_string, new_pdga_session_info['session_name'], new_pdga_session_info['sessid'])
+        except APICallFailed:
+            try:
+                print('Trying new PDGA session info')
+                new_pdga_session_info = _get_new_pdga_session_info()
+                players_list = _get_player_info(url,
+                                                new_pdga_session_info[c.SESSION_NAME],
+                                                new_pdga_session_info[c.SESSION_ID])
+            except APICallFailed:  # API call failed with new PDGA session info
+                print('New PDGA session info failed')
+                return
+        response_length = len(players_list)
+        # print(f'Response Length = {response_length}')
+        if offset == 0:
+            csv_functions.write_header(players_list)
+        csv_functions.append_to_csv(players_list)
+        offset += limit
+        results_count += response_length
+        print(f'Cumulative players: {results_count}')
+        if response_length != limit:
+            print('Response length != limit')
+            break
+        if results_count > 1000:
+            print('Results count > 1000')
             break
     print(f'Total players returned: {results_count}')
