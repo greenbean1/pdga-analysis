@@ -1,7 +1,6 @@
 # PDGA Analysis
 This is a data analysis project
-[exploring](https://public.tableau.com/profile/beau5312#!/vizhome/USDiscGolfExploration/Density)
-PDGA player information
+[exploring PDGA player information](https://public.tableau.com/profile/beau5312#!/vizhome/USDiscGolfExploration/Density)
 
 ## Motivation
 1. I was curious to learn about the distribution of skilled disc golfers across US states
@@ -37,7 +36,6 @@ PDGA player information
 
 ~~9. Refactor code (ex: truly use constants module)~~
 
-TODO Add link to specific Census data
 ### Things I Learned (or at least started learning)
 1. [HTTP Status Codes](https://www.restapitutorial.com/httpstatuscodes.html)
 2. [Requests Library](https://requests.readthedocs.io/en/master/)
@@ -54,11 +52,13 @@ TODO Add link to specific Census data
 13. Use a constants module heavily for consistency - you'll enjoy more robust code quicker & easier
 14. [Exception Handling](https://www.programiz.com/python-programming/exception-handling)
 15. Reading numeric data into Pandas - watch out for commas making strings/Objects
+16. Adding arguments to scripts - I used the [argparse library](https://docs.python.org/3/library/argparse.html)
 
 ### Potential Next Steps
 1. For visualization: Dash, Plotly, Flourish, Chartify instead of Tableau
 2. Analyze European disc golf growth (Pick top few countries -> tournament & course growth)
 3. Fix bug I noticed (but doesn't currently matter) in pulling player stats data on 'prize' & 'last_modified' columns ex: PDGA number 148486
+4. Move argument validation & parsing outside of main.py into its own module
 
 ### Credits
 Thank you [Nathan Hoover](https://github.com/nhoover) and Jan Van Bruggen for your huge help on this project!
