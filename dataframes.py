@@ -12,13 +12,13 @@ def _clean_state_pop_data(df: pd.DataFrame) -> pd.DataFrame:
     df.columns = ['State', 'Population']  # Make columns consistent across PDGA & Census Data
     for index, row in df.iterrows():
         df.at[index, 'State'] = row['State'][1:]  # Remove prepended period before two-letter state abbreviation
+    print(df.info())
     return df
 
 
 def load_state_pop_data() -> pd.DataFrame:
     df_pop = pd.read_csv(c.STATE_POP_CSV, engine='python')
     clean_df_pop = _clean_state_pop_data(df_pop)
-    print(clean_df_pop)
     return clean_df_pop
 
 
@@ -55,13 +55,15 @@ def make_dg_summary_df() -> pd.DataFrame:
 def combine_dg_and_pop_data() -> pd.DataFrame:
     df_dg = make_dg_summary_df()
     df_pop = load_state_pop_data()
-    df_combined = pd.merge(df_dg, df_pop, how='left', on='State')
-    # print(df_combined.info())
+    df_combined = pd.merge(df_pop, df_dg, how='left', on='State')
+    df_combined = df_combined.dropna()
+    print(df_combined.dtypes)
+    print(df_combined.head())
+    # df_combined['Population'] = df_combined['Population'].astype(str).astype(int)
+    print(df_combined.describe())
+    print(df_combined)
+    df_combined['density_total_pro'] = df_combined['num_total_pros'] / df_combined['Population'].astype(str).astype(int)
+    df_combined['density_950+'] = df_combined['num_950_pros'] / df_combined['Population']
+    df_combined['density_1000+'] = df_combined['num_1000+_pros'] / df_combined['Population']
+    print(df_combined.info())
     return df_combined
-
-
-# Test to confirm does not need to return itself
-def add_density_metrics(df: pd.DataFrame):
-    df['density_total_pro'] = df['num_total_pros'] / df['Population']
-    df['density_950+'] = df['num_950_pros'] / df['Population']
-    df['density_1000+'] = df['num_1000+_pros'] / df['Population']

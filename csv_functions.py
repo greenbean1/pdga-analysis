@@ -11,13 +11,13 @@ import constants as c
 
 def write_header(players: List[Dict[str, str]]) -> None:  # Could add to constants.py: PLAYERS = List[Dict[str, str]]
     field_names = players[0].keys()
-    with open(c.PLAYER_STATS_CSV, 'w', newline='') as csv_file:
+    with open(c.PLAYER_INFO_CSV, 'w', newline='') as csv_file:
         writer = csv.writer(csv_file)
         writer.writerow(field_names)
 
 
 def append_to_csv(players: List[Dict[str, str]]) -> None:
-    with open(c.PLAYER_STATS_CSV, 'a', newline='') as csv_file:
+    with open(c.PLAYER_INFO_CSV, 'a', newline='') as csv_file:
         writer = csv.writer(csv_file)
         for player in players:
             player_values = []
@@ -32,7 +32,7 @@ def _get_correct_data() -> Tuple[List[str], Dict[int, List[Any]]]:
                     'classification']
     old_to_new_mappings = {'rating': 'city', 'rating_effective_date': 'state_prov', 'official_status': 'country',
                            'official_expiration_date': 'rating', 'last_modified': 'rating_effective_date'}
-    with open(c.PLAYER_STATS_CSV, 'r', newline='') as csv_file_read:
+    with open(c.PLAYER_INFO_CSV, 'r', newline='') as csv_file_read:
         reader = csv.DictReader(csv_file_read)
         for i, row in enumerate(reader):
             if i == 0:
@@ -58,7 +58,7 @@ def _get_correct_data() -> Tuple[List[str], Dict[int, List[Any]]]:
 
 def make_corrected_csv() -> None:
     header_names, correct_data = _get_correct_data()
-    with open(c.FIXED_PLAYER_STATS_CSV, 'w', newline='') as csv_file:
+    with open(c.FIXED_PLAYER_INFO_CSV, 'w', newline='') as csv_file:
         writer = csv.writer(csv_file)
         writer.writerow(header_names)
         for correct_row in correct_data.values():

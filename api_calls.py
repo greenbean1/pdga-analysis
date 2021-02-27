@@ -60,7 +60,7 @@ def _get_player_info(url: str, session_name: str, sessid: str) -> List[Dict[str,
         return player_info  # look into DotDict; lazy since could cause crash
 
 
-def get_player_data_via_pdga_number(pdga_number: int, api_call_player_search: bool = True) -> List[Dict[str, str]]:
+def get_player_data_via_pdga_number(pdga_number: int, api_call_player_search: bool = True) -> None:
     if api_call_player_search:
         url = c.PLAYER_SEARCH_URL + f'pdga_number={pdga_number}'
     else:
@@ -68,11 +68,15 @@ def get_player_data_via_pdga_number(pdga_number: int, api_call_player_search: bo
     try:
         print('Trying old PDGA session info')
         old_pdga_session_info = _get_old_pdga_session_info()
-        return _get_player_info(url, old_pdga_session_info['session_name'], old_pdga_session_info['sessid'])
+        player_entry = _get_player_info(url, old_pdga_session_info['session_name'], old_pdga_session_info['sessid'])
+        csv_functions.write_header(player_entry)
+        csv_functions.append_to_csv(player_entry)
     except APICallFailed:
         print('Trying new PDGA session info')
         new_pdga_session_info = _get_new_pdga_session_info()
-        return _get_player_info(url, new_pdga_session_info['session_name'], new_pdga_session_info['sessid'])
+        player_entry = _get_player_info(url, new_pdga_session_info['session_name'], new_pdga_session_info['sessid'])
+        csv_functions.write_header(player_entry)
+        csv_functions.append_to_csv(player_entry)
 
 
 def get_mpo_us_player_data(api_call_player_search: bool = True) -> None:
@@ -110,7 +114,7 @@ def get_mpo_us_player_data(api_call_player_search: bool = True) -> None:
         if response_length != limit:
             print('Response length != limit')
             break
-        if results_count > 1000:
+        if results_count > 99999:
             print('Results count > 1000')
             break
     print(f'Total players returned: {results_count}')
