@@ -11,8 +11,8 @@ directory = os.getcwd()
 # Main
 FINAL_DATASET_CSV = 'final_dataset.csv'
 final_dataset_path = os.path.join(directory, FINAL_DATASET_CSV)
-DOWNLOAD_OPTION_SEARCH = 'search'
-DOWNLOAD_OPTION_STATS = 'stats'
+DL_OPTION_SEARCH = 'search'
+DL_OPTION_STATS = 'stats'
 
 # API Calls
 PDGA_BEAU_INFO_FILE = 'pdga_beau_info.txt'
@@ -32,11 +32,12 @@ EVENT_SEARCH = 2
 COURSE_SEARCH = 3
 
 # CSV Info
-PLAYER_INFO_CSV = 'player_info.csv'
-FIXED_PLAYER_INFO_CSV = 'fixed_player_info.csv'
+PLAYER_AGG_CSV_INITIAL = 'player_agg_info_initial.csv'
+PLAYER_AGG_CSV_FIXED = 'player_agg_info_fixed.csv'
+PLAYER_INDIVIDUAL_CSV = 'player_individual.csv'
 
 # Dataframes
-path_name_dg_csv = os.path.join(directory, FIXED_PLAYER_INFO_CSV)
+path_name_dg_csv = os.path.join(directory, PLAYER_AGG_CSV_FIXED)
 STATE_POP_CSV = 'census_pop_data.csv'
 # Column Names
 # Columns used in final CSV

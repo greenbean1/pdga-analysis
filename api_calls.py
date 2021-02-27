@@ -69,24 +69,25 @@ def get_player_data_via_pdga_number(pdga_number: int, api_call_player_search: bo
         print('Trying old PDGA session info')
         old_pdga_session_info = _get_old_pdga_session_info()
         player_entry = _get_player_info(url, old_pdga_session_info['session_name'], old_pdga_session_info['sessid'])
-        csv_functions.write_header(player_entry)
-        csv_functions.append_to_csv(player_entry)
+        csv_functions.write_header(player_entry, individual=True)
+        csv_functions.append_to_csv(player_entry, individual=True)
     except APICallFailed:
         print('Trying new PDGA session info')
         new_pdga_session_info = _get_new_pdga_session_info()
         player_entry = _get_player_info(url, new_pdga_session_info['session_name'], new_pdga_session_info['sessid'])
-        csv_functions.write_header(player_entry)
-        csv_functions.append_to_csv(player_entry)
+        csv_functions.write_header(player_entry, individual=True)
+        csv_functions.append_to_csv(player_entry, individual=True)
 
 
 def get_mpo_us_player_data(api_call_player_search: bool = True) -> None:
     limit = 200  # Varies between 10 and 200
     offset = 0  # 0+
     results_count = 0
+    max_results = 9999  # Failsafe to ensure while loop breaks at some point
     while True:
         if api_call_player_search:
             url = c.PLAYER_SEARCH_URL + f'class=P&country=US&limit={limit}&offset={offset}'
-        else:  # Else query Player Statistics API
+        else:
             url = c.PLAYER_STATS_URL + f'division_code=MPO&country=US&year=2020&limit={limit}&offset={offset}'
         try:  # Try / Except to handle old vs new PDGA session info
             print('Trying old PDGA session info')
@@ -106,15 +107,15 @@ def get_mpo_us_player_data(api_call_player_search: bool = True) -> None:
                 return
         response_length = len(players_list)
         if offset == 0:
-            csv_functions.write_header(players_list)
-        csv_functions.append_to_csv(players_list)
+            csv_functions.write_header(players_list, individual=False)
+        csv_functions.append_to_csv(players_list, individual=False)
         offset += limit
         results_count += response_length
         print(f'Cumulative players: {results_count}')
         if response_length != limit:
             print('Response length != limit')
             break
-        if results_count > 99999:
-            print('Results count > 1000')
+        if results_count > max_results:  # Protective measure to ensure while loop breaks
+            print(f'Reached failsafe limit - results count > {max_results}')
             break
     print(f'Total players returned: {results_count}')

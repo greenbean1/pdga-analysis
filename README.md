@@ -58,6 +58,7 @@ TODO Add link to specific Census data
 ### Potential Next Steps
 1. For visualization: Dash, Plotly, Flourish, Chartify instead of Tableau
 2. Analyze European disc golf growth (Pick top few countries -> tournament & course growth)
+3. Fix bug I noticed (but doesn't currently matter) in pulling player stats data on 'prize' & 'last_modified' columns ex: PDGA number 148486
 
 ### Credits
 Thank you [Nathan Hoover](https://github.com/nhoover) and Jan Van Bruggen for your huge help on this project!

@@ -3,21 +3,29 @@ This module has functions relating to CSV files
 """
 
 import csv
-import os
+from shutil import copy
 from typing import Any, Dict, List, Tuple
 
 import constants as c
 
 
-def write_header(players: List[Dict[str, str]]) -> None:  # Could add to constants.py: PLAYERS = List[Dict[str, str]]
+def write_header(players: List[Dict[str, str]], individual: bool) -> None:
     field_names = players[0].keys()
-    with open(c.PLAYER_INFO_CSV, 'w', newline='') as csv_file:
+    if individual:
+        filename = c.PLAYER_INDIVIDUAL_CSV
+    else:
+        filename = c.PLAYER_AGG_CSV_INITIAL
+    with open(filename, 'w', newline='') as csv_file:
         writer = csv.writer(csv_file)
         writer.writerow(field_names)
 
 
-def append_to_csv(players: List[Dict[str, str]]) -> None:
-    with open(c.PLAYER_INFO_CSV, 'a', newline='') as csv_file:
+def append_to_csv(players: List[Dict[str, str]], individual: bool) -> None:
+    if individual:
+        filename = c.PLAYER_INDIVIDUAL_CSV
+    else:
+        filename = c.PLAYER_AGG_CSV_INITIAL
+    with open(filename, 'a', newline='') as csv_file:
         writer = csv.writer(csv_file)
         for player in players:
             player_values = []
@@ -32,7 +40,7 @@ def _get_correct_data() -> Tuple[List[str], Dict[int, List[Any]]]:
                     'classification']
     old_to_new_mappings = {'rating': 'city', 'rating_effective_date': 'state_prov', 'official_status': 'country',
                            'official_expiration_date': 'rating', 'last_modified': 'rating_effective_date'}
-    with open(c.PLAYER_INFO_CSV, 'r', newline='') as csv_file_read:
+    with open(c.PLAYER_AGG_CSV_INITIAL, 'r', newline='') as csv_file_read:
         reader = csv.DictReader(csv_file_read)
         for i, row in enumerate(reader):
             if i == 0:
@@ -56,10 +64,14 @@ def _get_correct_data() -> Tuple[List[str], Dict[int, List[Any]]]:
     return header_names, fixed_data_dict
 
 
-def make_corrected_csv() -> None:
-    header_names, correct_data = _get_correct_data()
-    with open(c.FIXED_PLAYER_INFO_CSV, 'w', newline='') as csv_file:
-        writer = csv.writer(csv_file)
-        writer.writerow(header_names)
-        for correct_row in correct_data.values():
-            writer.writerow(correct_row)
+def make_fixed_player_info_csv(api_call_player_search: bool = True) -> None:
+    if api_call_player_search:
+        header_names, correct_data = _get_correct_data()
+        with open(c.PLAYER_AGG_CSV_FIXED, 'w', newline='') as csv_file:
+            writer = csv.writer(csv_file)
+            writer.writerow(header_names)
+            for correct_row in correct_data.values():
+                writer.writerow(correct_row)
+    else:
+        print('Copying player stats csv')
+        copy(c.PLAYER_AGG_CSV_INITIAL, c.PLAYER_AGG_CSV_FIXED)

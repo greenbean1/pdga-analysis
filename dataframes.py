@@ -2,7 +2,6 @@
 This module has the pandas related functions for data munging
 """
 
-# TODO constantize ALL column names
 
 import numpy as np
 import pandas as pd
@@ -41,7 +40,7 @@ def _add_rating_flags(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 
-def make_dg_summary_df() -> pd.DataFrame:
+def _make_dg_summary_df() -> pd.DataFrame:
     df_players = pd.read_csv(c.path_name_dg_csv, engine='python')
     df_players = _state_abbreviations_to_full(df_players)
     df_players = _add_rating_flags(df_players)
@@ -55,7 +54,7 @@ def make_dg_summary_df() -> pd.DataFrame:
 
 
 def combine_dg_and_pop_data() -> pd.DataFrame:
-    df_dg = make_dg_summary_df()
+    df_dg = _make_dg_summary_df()
     df_pop = load_state_pop_data()
     df_combined = pd.merge(df_pop, df_dg, how='inner', on=c.COL_STATE)
     df_combined = df_combined.dropna()
