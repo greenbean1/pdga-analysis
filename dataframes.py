@@ -2,17 +2,21 @@
 This module has the pandas related functions for data munging
 """
 
+# TODO constantize ALL column names
+
 import numpy as np
 import pandas as pd
 
 import constants as c
+
+NUM_TOTAL_PROS = 'num_total_pros'
 
 
 def _clean_state_pop_data(df: pd.DataFrame) -> pd.DataFrame:
     df.columns = ['State', 'Population']  # Make columns consistent across PDGA & Census Data
     for index, row in df.iterrows():
         df.at[index, 'State'] = row['State'][1:]  # Remove prepended period before two-letter state abbreviation
-    print(df.info())
+    df['Population'] = df['Population'].str.replace(',', '').astype(int)
     return df
 
 
@@ -57,13 +61,8 @@ def combine_dg_and_pop_data() -> pd.DataFrame:
     df_pop = load_state_pop_data()
     df_combined = pd.merge(df_pop, df_dg, how='left', on='State')
     df_combined = df_combined.dropna()
-    print(df_combined.dtypes)
-    print(df_combined.head())
-    # df_combined['Population'] = df_combined['Population'].astype(str).astype(int)
-    print(df_combined.describe())
-    print(df_combined)
-    df_combined['density_total_pro'] = df_combined['num_total_pros'] / df_combined['Population'].astype(str).astype(int)
+    df_combined['density_total_pro'] = df_combined[NUM_TOTAL_PROS] / df_combined['Population']
     df_combined['density_950+'] = df_combined['num_950_pros'] / df_combined['Population']
-    df_combined['density_1000+'] = df_combined['num_1000+_pros'] / df_combined['Population']
+    df_combined['density_1000+'] = df_combined['num_1000_pros'] / df_combined['Population']
     print(df_combined.info())
     return df_combined

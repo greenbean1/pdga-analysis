@@ -34,8 +34,7 @@ PLAYER_INFO_CSV = 'player_info.csv'
 FIXED_PLAYER_INFO_CSV = 'fixed_player_info.csv'
 
 # Dataframes
-# FINAL_DG_CSV = 'fixed_player_stats.csv'
-path_name_dg_csv = os.path.join(directory, FIXED_PLAYER_INFO_CSV)  # TODO Ensure this still works
+path_name_dg_csv = os.path.join(directory, FIXED_PLAYER_INFO_CSV)
 STATE_POP_CSV = 'census_pop_data.csv'
 # Sourced from: https://gist.github.com/rogerallen/1583593 &
 # Enhanced from: http://app02.clerk.org/menu/ccis/Help/CCIS%20Codes/state_codes.html

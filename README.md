@@ -53,6 +53,7 @@ TODO Add link to specific Census data
 12. [Merging Data in Pandas](https://www.tutorialspoint.com/python_pandas/python_pandas_merging_joining.htm)
 13. Use a constants module heavily for consistency - you'll enjoy more robust code quicker & easier
 14. [Exception Handling](https://www.programiz.com/python-programming/exception-handling)
+15. Reading numeric data into Pandas - watch out for commas making strings/Objects
 
 ### Potential Next Steps
 1. For visualization: Dash, Plotly, Flourish, Chartify instead of Tableau
