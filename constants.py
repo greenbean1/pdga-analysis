@@ -11,6 +11,8 @@ directory = os.getcwd()
 # Main
 FINAL_DATASET_CSV = 'final_dataset.csv'
 final_dataset_path = os.path.join(directory, FINAL_DATASET_CSV)
+DOWNLOAD_OPTION_SEARCH = 'search'
+DOWNLOAD_OPTION_STATS = 'stats'
 
 # API Calls
 PDGA_BEAU_INFO_FILE = 'pdga_beau_info.txt'
@@ -29,7 +31,7 @@ PLAYER_STATS = 1
 EVENT_SEARCH = 2
 COURSE_SEARCH = 3
 
-# CSV
+# CSV Info
 PLAYER_INFO_CSV = 'player_info.csv'
 FIXED_PLAYER_INFO_CSV = 'fixed_player_info.csv'
 

@@ -21,17 +21,19 @@ def main():
 
     # Ensure user arguments are valid
     if opts.download:  # if download has a value, must be either stats or search
-        if opts.download.lower() not in ['stats', 'search']:
-            print(f'Download option must be either "stats" or "search", not {opts.download}')
+        if opts.download.lower() not in [c.DOWNLOAD_OPTION_STATS, c.DOWNLOAD_OPTION_SEARCH]:
+            print(f'Download option must be either "{c.DOWNLOAD_OPTION_STATS} or "{c.DOWNLOAD_OPTION_SEARCH}",'
+                  f' not {opts.download}')
             return
     else:
         if opts.pdga_number is not None:
             print('Must include download option if specifying a PDGA number')
             return
 
+    # Do stuff depending on which arguments the user passes
     if opts.download:
         download_type = opts.download.lower()
-        if download_type == 'search':
+        if download_type == c.DOWNLOAD_OPTION_SEARCH:
             if opts.pdga_number is None:
                 api_calls.get_mpo_us_player_data()
             else:
