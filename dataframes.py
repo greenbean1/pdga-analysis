@@ -9,14 +9,12 @@ import pandas as pd
 
 import constants as c
 
-NUM_TOTAL_PROS = 'num_total_pros'
-
 
 def _clean_state_pop_data(df: pd.DataFrame) -> pd.DataFrame:
-    df.columns = ['State', 'Population']  # Make columns consistent across PDGA & Census Data
+    df.columns = [c.COL_STATE, c.COL_POPULATION]  # Make columns consistent across PDGA & Census Data
     for index, row in df.iterrows():
-        df.at[index, 'State'] = row['State'][1:]  # Remove prepended period before two-letter state abbreviation
-    df['Population'] = df['Population'].str.replace(',', '').astype(int)
+        df.at[index, c.COL_STATE] = row[c.COL_STATE][1:]  # Remove prepended period before two-letter state abbreviation
+    df[c.COL_POPULATION] = df[c.COL_POPULATION].str.replace(',', '').astype(int)
     return df
 
 
@@ -29,16 +27,17 @@ def load_state_pop_data() -> pd.DataFrame:
 def _state_abbreviations_to_full(df: pd.DataFrame) -> pd.DataFrame:
     # Flip the dictionary in constants module to have keys be the abbreviations
     mapping = {value: key for key, value in c.STATE_ABBREVIATION_MAPPING.items()}
-    df['state_prov'] = df['state_prov'].str.upper()
+    df.rename(columns={'state_prov': c.COL_STATE}, inplace=True)
+    df[c.COL_STATE] = df[c.COL_STATE].str.upper()
     for index, row in df.iterrows():
-        if pd.notna(row['state_prov']):
-            df.at[index, 'state_prov'] = mapping[row['state_prov']]
+        if pd.notna(row[c.COL_STATE]):
+            df.at[index, c.COL_STATE] = mapping[row[c.COL_STATE]]
     return df
 
 
 def _add_rating_flags(df: pd.DataFrame) -> pd.DataFrame:
-    df['flag_950'] = np.where(df['rating'] >= 950, 1, 0)
-    df['flag_1000'] = np.where(df['rating'] >= 1000, 1, 0)
+    df[c.COL_FLAG_950] = np.where(df[c.COL_RATING] >= 950, 1, 0)
+    df[c.COL_FLAG_1000] = np.where(df[c.COL_RATING] >= 1000, 1, 0)
     return df
 
 
@@ -46,23 +45,21 @@ def make_dg_summary_df() -> pd.DataFrame:
     df_players = pd.read_csv(c.path_name_dg_csv, engine='python')
     df_players = _state_abbreviations_to_full(df_players)
     df_players = _add_rating_flags(df_players)
-    df_agg = df_players.groupby('state_prov').agg(
-        num_total_pros=('pdga_number', 'count'),
-        num_950_pros=('flag_950', 'sum'),
-        num_1000_pros=('flag_1000', 'sum')
+    df_agg = df_players.groupby(c.COL_STATE).agg(  # Next time look into defining these column names via constants
+        num_total_pros=(c.COL_PDGA_NUMBER, 'count'),
+        num_950_pros=(c.COL_FLAG_950, 'sum'),
+        num_1000_pros=(c.COL_FLAG_1000, 'sum')
     )
     df_agg = df_agg.reset_index()
-    df_agg.rename(columns={'state_prov': 'State'}, inplace=True)
     return df_agg
 
 
 def combine_dg_and_pop_data() -> pd.DataFrame:
     df_dg = make_dg_summary_df()
     df_pop = load_state_pop_data()
-    df_combined = pd.merge(df_pop, df_dg, how='left', on='State')
+    df_combined = pd.merge(df_pop, df_dg, how='inner', on=c.COL_STATE)
     df_combined = df_combined.dropna()
-    df_combined['density_total_pro'] = df_combined[NUM_TOTAL_PROS] / df_combined['Population']
-    df_combined['density_950+'] = df_combined['num_950_pros'] / df_combined['Population']
-    df_combined['density_1000+'] = df_combined['num_1000_pros'] / df_combined['Population']
-    print(df_combined.info())
+    df_combined[c.COL_DENSITY_TOTAL_PRO] = df_combined[c.COL_NUM_TOTAL_PROS] / df_combined[c.COL_POPULATION]
+    df_combined[c.COL_DENSITY_950] = df_combined[c.COL_NUM_950_PROS] / df_combined[c.COL_POPULATION]
+    df_combined[c.COL_DENSITY_1000] = df_combined[c.COL_NUM_1000_PROS] / df_combined[c.COL_POPULATION]
     return df_combined

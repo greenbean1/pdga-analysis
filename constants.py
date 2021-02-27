@@ -38,6 +38,23 @@ FIXED_PLAYER_INFO_CSV = 'fixed_player_info.csv'
 # Dataframes
 path_name_dg_csv = os.path.join(directory, FIXED_PLAYER_INFO_CSV)
 STATE_POP_CSV = 'census_pop_data.csv'
+# Column Names
+# Columns used in final CSV
+COL_STATE = 'State'
+COL_POPULATION = 'Population'
+COL_NUM_TOTAL_PROS = 'num_total_pros'
+COL_NUM_950_PROS = 'num_950_pros'
+COL_NUM_1000_PROS = 'num_1000_pros'
+COL_DENSITY_TOTAL_PRO = 'density_total_pro'
+COL_DENSITY_950 = 'density_950+'
+COL_DENSITY_1000 = 'density_1000+'
+# Columns used only in disc golf dataframe
+COL_FLAG_950 = 'flag_950'
+COL_FLAG_1000 = 'flag_1000'
+COL_RATING = 'rating'
+COL_PDGA_NUMBER = 'pdga_number'
+
+
 # Sourced from: https://gist.github.com/rogerallen/1583593 &
 # Enhanced from: http://app02.clerk.org/menu/ccis/Help/CCIS%20Codes/state_codes.html
 STATE_ABBREVIATION_MAPPING = {
